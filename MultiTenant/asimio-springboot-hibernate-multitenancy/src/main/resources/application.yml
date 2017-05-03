@@ -17,9 +17,9 @@ endpoints:
 
 info:
   app:
-    name: @project.artifactId@
+    name: #project.artifactId#
   build:
-    version: @project.version@
+    version: #project.version#
 
 spring:
   jpa:
