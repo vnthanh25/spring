@@ -8,7 +8,21 @@ taskManagerModule.controller('taskManagerController', function ($scope,$http) {
 	$scope.statuses=['ACTIVE','COMPLETED'];
 	$scope.priorities=['HIGH','LOW','MEDIUM'];
 	$http.defaults.headers.post["Content-Type"] = "application/json";
-
+	
+	function findUsers() {
+		$http.get('http://localhost:2222/api/users').then(
+			// success.
+			function(response) {
+				$scope.users = response.data;
+			},
+			// error.
+			function(response) {
+				var error = response.data;
+			}
+		);
+	}
+	findUsers();
+	
     function findAllTasks() {
         //get all tasks and display initially
         $http.get(urlBase + '/tasks/search/findByTaskArchived?archivedfalse=0').
