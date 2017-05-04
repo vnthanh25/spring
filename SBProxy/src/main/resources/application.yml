@@ -1,0 +1,4 @@
+proxy:
+  elasticsearch:
+    targetUri: http://localhost:2222
+    servletUrl: /elasticsearch/*
