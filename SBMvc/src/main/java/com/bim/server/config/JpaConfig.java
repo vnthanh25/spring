@@ -29,8 +29,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.zaxxer.hikari.HikariDataSource;
 
-@Configuration
-@EnableTransactionManagement
+//@Configuration
+//@EnableTransactionManagement
 public class JpaConfig {
 
 	@Autowired
