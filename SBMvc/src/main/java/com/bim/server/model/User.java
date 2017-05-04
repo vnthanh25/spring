@@ -1,4 +1,4 @@
-package com.example.model;
+package com.bim.server.model;
 
 import java.io.Serializable;
 

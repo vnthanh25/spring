@@ -1,4 +1,4 @@
-package com.example.config;
+package com.bim.server.config;
 
 import java.util.Properties;
 
@@ -73,7 +73,7 @@ public class JpaConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
 		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan(new String[] { "com.example.model" });
+		factoryBean.setPackagesToScan(new String[] { environment.getRequiredProperty("spring.model-scan") });
 		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
 		factoryBean.setJpaProperties(jpaProperties());
 		return factoryBean;

@@ -2,3 +2,4 @@
 spring:
   profiles:
     active: prod
+  model-scan: com.bim.server.model
