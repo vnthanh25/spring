@@ -7,7 +7,6 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		//application.context().getBean("testBean");
 		return application.sources(SbProxyApplication.class);
 	}
 

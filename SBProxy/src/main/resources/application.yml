@@ -1,9 +1,6 @@
 ---
 proxy:
-  server1:
-    targetUri: http://localhost:1111
-    servletUrl: /server1/*
-  server2:
-    targetUri: http://localhost:2222
-    servletUrl: /server2/*
+  server:
+    targetUri: http://localhost:9999/server
+    servletUrl: /server/*
     
