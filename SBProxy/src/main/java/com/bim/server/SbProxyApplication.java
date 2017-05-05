@@ -10,7 +10,7 @@ import com.bim.server.config.ProxyServletConfiguration;
 public class SbProxyApplication {
 
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ProxyServletConfiguration.class);
+		//AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ProxyServletConfiguration.class);
 
 		SpringApplication.run(SbProxyApplication.class, args);
 	}

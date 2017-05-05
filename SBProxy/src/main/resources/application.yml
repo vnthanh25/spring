@@ -1,4 +1,9 @@
+---
 proxy:
-  elasticsearch:
+  server1:
+    targetUri: http://localhost:1111
+    servletUrl: /server1/*
+  server2:
     targetUri: http://localhost:2222
-    servletUrl: /elasticsearch/*
+    servletUrl: /server2/*
+    

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -16,15 +17,77 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
+
+@Configuration
+public class ProxyServletConfiguration {
+
+	@Autowired
+	private Environment environment;
+
+	@Bean(name="server1")
+	public ServletRegistrationBean servletRegistrationBean1() {
+		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new ProxyServlet(), environment.getProperty("proxy.server1.servletUrl"));
+		servletRegistrationBean.addInitParameter("targetUri", environment.getProperty("proxy.server1.targetUri"));
+		servletRegistrationBean.setLoadOnStartup(1);
+		
+		return servletRegistrationBean;
+	}
+
+	@Bean(name="server2")
+	public ServletRegistrationBean servletRegistrationBean2() {
+		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new ProxyServlet(), environment.getProperty("proxy.server2.servletUrl"));
+		servletRegistrationBean.addInitParameter("targetUri", environment.getProperty("proxy.server2.targetUri"));
+		servletRegistrationBean.setLoadOnStartup(2);
+		
+		return servletRegistrationBean;
+	}
+	
+/*	
+	@Bean(name="server1")
+	public ServletRegistrationBean servletRegistrationBean1() {
+		//ProxyServlet proxyServlet = new ProxyServlet();
+        Map<String, String> initParams = new HashMap<String, String>();
+	    initParams.put("targetUri", "http://localhost:1111");
+	    initParams.put("targetUri", "http://localhost:2222");
+	    
+		ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new ProxyServlet());
+		//servletRegistrationBean.addUrlMappings(environment.getProperty("proxy.server1.servletUrl"), environment.getProperty("proxy.server2.servletUrl"));;
+		//servletRegistrationBean.addInitParameter("targetUri", environment.getProperty("proxy.server1.targetUri"));
+		//servletRegistrationBean.addInitParameter("targetUri", environment.getProperty("proxy.server2.targetUri"));
+		servletRegistrationBean.setUrlMappings(new ArrayList<>(Arrays.asList("/server1/*", "/server2/*")));
+		servletRegistrationBean.setInitParameters(initParams);
+		
+		return servletRegistrationBean;
+	}
+*/
+}
+
+/*
 @Configuration
 public class ProxyServletConfiguration {
 	@Bean
     public BeanFactoryPostProcessor beanFactoryPostProcessor() {
         return bf -> {
             BeanDefinitionRegistry beanFactory = (BeanDefinitionRegistry) bf;
+
+            ProxyServlet proxyServlet1 = new ProxyServlet();
+            Map<String, String> initParams1 = new HashMap<String, String>();
+    	    initParams1.put("targetUri", "http://localhost:1111");
+    	    BeanDefinitionBuilder beanDefinition1 = BeanDefinitionBuilder.genericBeanDefinition(ServletRegistrationBean.class)
+            		.setScope(BeanDefinition.SCOPE_SINGLETON)
+            		.addPropertyValue("servlet", proxyServlet1)
+            		.addPropertyValue("urlMappings", new ArrayList<>(Arrays.asList("/server1/*")))
+            		.addPropertyValue("initParameters", initParams1);
+                    //.addConstructorArgReference("testBean1")
+                    //.addConstructorArgValue(proxyServlet)
+                    
+    	    AbstractBeanDefinition bean1 = beanDefinition1.getBeanDefinition();
+            beanFactory.registerBeanDefinition("server1", bean1);
 
             ProxyServlet proxyServlet = new ProxyServlet();
             Map<String, String> initParams = new HashMap<String, String>();
@@ -38,11 +101,11 @@ public class ProxyServletConfiguration {
                     //.addConstructorArgValue(proxyServlet)
                     
     	    AbstractBeanDefinition bean = beanDefinition.getBeanDefinition();
-            beanFactory.registerBeanDefinition("testBean", bean);
+            beanFactory.registerBeanDefinition("server2", bean);
         };
     }
 }
-
+*/
 /*
 @Configuration
 public class ProxyServletConfiguration implements BeanFactoryPostProcessor {
