@@ -1,5 +1,27 @@
 ---
-spring:
-  profiles: dev
 server:
   port: 1111
+spring:
+  profiles: dev
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+multitenancy:
+  pbmvc:
+    dataSources:
+      -
+        tenantId: tenant_1
+        url: jdbc:postgresql://localhost:5432/pbmvc1
+        username: postgres
+        password: admin
+        driverClassName: org.postgresql.Driver
+      -
+        tenantId: tenant_2
+        url: jdbc:postgresql://localhost:5432/pbmvc2
+        username: postgres
+        password: admin
+        driverClassName: org.postgresql.Driver
