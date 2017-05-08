@@ -1,5 +1,5 @@
 
-var serverUrl = 'http://localhost:8080';
+var serverUrl = 'http://localhost:9999';
 var appKey = 'tenant_1';
 var app = angular.module('app', ['ui.router']);
 

@@ -4,6 +4,27 @@ Detail
 <div>
 	<input ng-model="name"></input>
 </div>
+
+<!-- attachments -->
+<div class="form-group col-sm-12">
+	<label class="control-label col-sm-6" for="attachments">Attachments</label>
+	<div class="input-group col-sm-6">
+		<input type="file" class="form-control btn btn-default" ng-click="fileClear($event)" id="attachments" name="attachments" multiple ng-files="addAttachments($files)" />
+		<table class="table table-bordered">
+			<tr ng-repeat="file in files">
+				<td>{{file.fileName}}</td>
+				<td>
+					<div ng-click="deleteAttachments(file.fileName)"><span class="glyphicon glyphicon-trash"></span></div>
+				</td>
+				<td>
+					<div ng-click="downloadAttachments(file.fileName)"><span class="glyphicon glyphicon-download"></span></div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<button ng-click="saveAttachments()">Save attachments</button>
+</div>
+
 <div>
 	<button ng-click="save()">Save</button>
 </div>

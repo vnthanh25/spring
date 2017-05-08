@@ -125,7 +125,8 @@ public class JpaConfig {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**");
+            	//registry.addMapping("/api/**");
+                registry.addMapping("/**");
             }
         };
     }
