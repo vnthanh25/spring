@@ -1,0 +1,50 @@
+
+#layout {
+}
+
+#header {
+	background-color: blue;
+	top: 0px;
+	left: 8px;
+	right: 8px;
+	height: 30px;
+}
+#header::after {
+	clear: both;
+	content: "";
+	display: block;
+}
+
+#left {
+	background-color: yellow;
+	float: left;
+	width: 30%;
+	top: 130px;
+	bottom: 30px;
+}
+
+#content {
+	background-color: green;
+	float: left;
+	width: 70%;
+	top: 130px;
+	bottom: 30px;
+}
+
+#container {
+	position: relative;
+}
+
+#footer {
+	background-color: gray;
+	position: absolute;
+	bottom: 0px;
+	left: 8px;
+	right: 8px;
+	height: 30px;
+}
+#footer::before {
+	clear: both;
+	content: "";
+	display: block;
+}
