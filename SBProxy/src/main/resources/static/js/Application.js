@@ -1,4 +1,6 @@
 
+var serverUrl = 'http://localhost:8080';
+var appKey = 'tenant_1';
 var app = angular.module('app', ['ui.router']);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
