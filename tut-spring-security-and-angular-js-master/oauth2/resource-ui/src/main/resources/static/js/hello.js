@@ -1,6 +1,8 @@
+
+var appUrl = 'http://localhost:1111';
 angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
 
-	$routeProvider.when('/', {
+	$routeProvider.when('/home', {
 		templateUrl : 'home.html',
 		controller : 'home',
 		controllerAs : 'controller'
@@ -19,9 +21,10 @@ function($rootScope, $http, $location, $route) {
 		return $route.current && route === $route.current.controller;
 	};
 
-	$http.get('user').then(function(response) {
+	$http.get(appUrl + '/user').then(function(response) {
 		if (response.data.name) {
 			$rootScope.authenticated = true;
+			$location.path('/home');
 		} else {
 			$rootScope.authenticated = false;
 		}
@@ -32,7 +35,7 @@ function($rootScope, $http, $location, $route) {
 	self.credentials = {};
 
 	self.logout = function() {
-		$http.post('logout', {}).finally(function() {
+		$http.post(appUrl + '/logout', {}).finally(function() {
 			$rootScope.authenticated = false;
 			$location.path("/");
 		});
@@ -40,7 +43,7 @@ function($rootScope, $http, $location, $route) {
 
 }).controller('home', function($http) {
 	var self = this;
-	$http.get('resource/').then(function(response) {
+	$http.get(appUrl + '/resource/').then(function(response) {
 		self.greeting = response.data;
 	})
 });

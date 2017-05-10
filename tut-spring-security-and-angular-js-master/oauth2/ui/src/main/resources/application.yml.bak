@@ -25,15 +25,13 @@ security:
 
 zuul:
   routes:
-    user:
-      path: /user/**
+    server:
+      path: /server/**
       url: http://localhost:1111
-    ui:
-      path: /ui/**
-      url: http://localhost:1111
-    resource:
-      path: /resource/**
-      url: http://localhost:1111
+
+ribbon:
+  eureka:
+    enabled: false
 
 logging:
   level:
