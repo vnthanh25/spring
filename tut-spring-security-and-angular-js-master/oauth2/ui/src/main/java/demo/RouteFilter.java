@@ -36,11 +36,11 @@ public class RouteFilter extends ZuulFilter {
     	HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
     	//String tenantId = request.getHeader(TENANT_HEADER_NAME);
     	String apiUrl = request.getRequestURI();
-    	if(apiUrl.contains("user")) {
+    	if(apiUrl.startsWith("/user/")) {
     		apiUrl = "http://localhost:9999/uaa/user";
-    	} else if(apiUrl.contains("resource")){
+    	} else if(apiUrl.startsWith("/resource/")){
     		apiUrl = "http://localhost:9000/resource";
-    	} else if(apiUrl.contains("ui")){
+    	} else if(apiUrl.startsWith("/ui/")){
     		apiUrl = "http://localhost:8000/ui";
     	} else {
     		apiUrl = "";

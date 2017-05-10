@@ -21,7 +21,7 @@ function($rootScope, $http, $location, $route) {
 		return $route.current && route === $route.current.controller;
 	};
 
-	$http.get(appUrl + '/user').then(function(response) {
+	$http.get(appUrl + '/user/').then(function(response) {
 		if (response.data.name) {
 			$rootScope.authenticated = true;
 			$location.path('/home');
