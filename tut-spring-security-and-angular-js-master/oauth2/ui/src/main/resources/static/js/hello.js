@@ -2,12 +2,6 @@
 var appUrl = 'http://localhost:1111';
 angular.module('hello', [ 'ngRoute' ]).config(function($routeProvider, $httpProvider) {
 
-	$routeProvider.when('/home', {
-		templateUrl : 'home.html',
-		controller : 'home',
-		controllerAs : 'controller'
-	}).otherwise('/');
-
 	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 	$httpProvider.defaults.headers.common['Accept'] = 'application/json';
 
@@ -24,7 +18,7 @@ function($rootScope, $http, $location, $route) {
 	$http.get(appUrl + '/user/').then(function(response) {
 		if (response.data.name) {
 			$rootScope.authenticated = true;
-			$location.path('/home');
+			window.location.href = "ui/";
 		} else {
 			$rootScope.authenticated = false;
 		}
@@ -32,22 +26,4 @@ function($rootScope, $http, $location, $route) {
 		$rootScope.authenticated = false;
 	});
 
-	self.credentials = {};
-
-	self.bimserver = function() {
-		window.location.href = appUrl + '/bimserverwar/';
-	}
-
-	self.logout = function() {
-		$http.post(appUrl + '/logout', {}).finally(function() {
-			$rootScope.authenticated = false;
-			$location.path("/");
-		});
-	}
-
-}).controller('home', function($http) {
-	var self = this;
-	$http.get(appUrl + '/resource/').then(function(response) {
-		self.greeting = response.data;
-	})
 });

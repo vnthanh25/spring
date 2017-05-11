@@ -34,6 +34,9 @@ zuul:
     resource:
       path: /resource/**
       url: http://localhost:1111
+    server:
+      path: /bimserverwar/**
+      url: http://localhost:1111
 
 logging:
   level:

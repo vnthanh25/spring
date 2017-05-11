@@ -12,10 +12,11 @@
 </style>
 </head>
 
-<body ng-app="hello" ng-cloak class="ng-cloak">aaaa
+<body ng-app="hello" ng-cloak class="ng-cloak">
 	<div ng-controller="navigation as nav" class="container">
 		<ul class="nav nav-pills" role="tablist">
 			<li ng-class="{active:nav.tab('home')}"><a href="#/">home</a></li>
+			<li ng-show="authenticated"><a href="" ng-click="nav.bimserver()">Bim server</a></li>
 			<li ng-class="{active:nav.tab('navigation')}"><a href="login">login</a></li>
 			<li ng-show="authenticated"><a href="" ng-click="nav.logout()">logout</a></li>
 		</ul>

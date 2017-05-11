@@ -38,10 +38,12 @@ public class RouteFilter extends ZuulFilter {
     	String apiUrl = request.getRequestURI();
     	if(apiUrl.startsWith("/user/")) {
     		apiUrl = "http://localhost:9999/uaa/user";
-    	} else if(apiUrl.startsWith("/resource/")){
-    		apiUrl = "http://localhost:9000/resource";
     	} else if(apiUrl.startsWith("/ui/")){
-    		apiUrl = "http://localhost:8000/ui";
+    		apiUrl = "http://localhost:2222/ui";
+    	} else if(apiUrl.startsWith("/resource/")){
+    		apiUrl = "http://localhost:3333/resource";
+    	} else if(apiUrl.startsWith("/bimserverwar/")){
+    		apiUrl = "http://localhost:5555/bimserverwar";
     	} else {
     		apiUrl = "";
     	}
