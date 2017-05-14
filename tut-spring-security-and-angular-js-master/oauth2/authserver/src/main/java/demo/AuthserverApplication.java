@@ -6,6 +6,7 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -31,8 +32,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @Controller
-@SessionAttributes("authorizationRequest")
+//@SessionAttributes("authorizationRequest")
 @EnableResourceServer
+@EnableAuthorizationServer
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class AuthserverApplication extends WebMvcConfigurerAdapter {
 
 	@RequestMapping("/user")
@@ -118,4 +121,6 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 		}
 
 	}
+	
+	
 }

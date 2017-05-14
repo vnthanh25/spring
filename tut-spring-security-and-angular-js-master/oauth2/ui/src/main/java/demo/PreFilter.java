@@ -1,11 +1,7 @@
-package demo;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+/*package demo;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -16,13 +12,13 @@ import org.springframework.web.util.WebUtils;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-public class RouteFilter extends ZuulFilter {
-    private static Logger log = LoggerFactory.getLogger(RouteFilter.class);
+public class PreFilter extends ZuulFilter {
+    private static Logger log = LoggerFactory.getLogger(PreFilter.class);
 	private static final String TENANT_HEADER_NAME = "X-TENANT-ID";
 
     @Override
     public String filterType() {
-        return "route";
+        return "pre";
     }
 
     @Override
@@ -48,14 +44,12 @@ public class RouteFilter extends ZuulFilter {
     		apiUrl = "http://localhost:2222/ui";
     	} else if(apiUrl.startsWith("/resource/")){
     		apiUrl = "http://localhost:3333/resource";
-    	} else if(apiUrl.startsWith("/server/")){
-    		apiUrl = "http://localhost:4444/server";
     	} else if(apiUrl.startsWith("/bimserverwar/")){
     		apiUrl = "http://localhost:5555/bimserverwar";
             
     		CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
             if (csrf != null) {
-/*            	
+            	
                 Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
                 String token = csrf.getToken();
                 if (cookie == null || token != null
@@ -77,15 +71,15 @@ public class RouteFilter extends ZuulFilter {
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 
-                //ctx.addZuulRequestHeader("X-XSRF-TOKEN", token);
-*/                
-/*                HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request);
+                ctx.addZuulRequestHeader("X-XSRF-TOKEN", token);
+                
+                HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request);
                 String remote_addr = request.getRemoteAddr();
                 requestWrapper.setAttribute(arg0, arg1);.addHeader("remote_addr", remote_addr);
-*/                
+                
            }
             
-/*
+
 			CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
             // Spring Security will allow the Token to be included in this header name
             response.setHeader("X-CSRF-HEADER", token.getHeaderName());
@@ -95,7 +89,7 @@ public class RouteFilter extends ZuulFilter {
 
             // this is the value of the token to be included as either a header or an HTTP parameter
             response.setHeader("X-CSRF-TOKEN", token.getToken());
-*/
+
 //            filterChain.doFilter(request, response);
 
     	} else if(apiUrl.startsWith("/redsun/")){
@@ -117,8 +111,10 @@ public class RouteFilter extends ZuulFilter {
 				e.printStackTrace();
 			}
     	}
+    	
         log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
         return null;
     }
 }
+*/
