@@ -1,6 +1,8 @@
 ---
 server:
-  port: 2222
+  port: 6666
+  contextPath: /server
+
 spring:
   profiles: prod
   jpa:

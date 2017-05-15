@@ -32,7 +32,7 @@ import com.bim.server.config.MultiTenantProperties.DataSourceProperties;
 
 @Configuration
 @EnableConfigurationProperties({ MultiTenantProperties.class, JpaProperties.class })
-//@ImportResource(locations = { "classpath:applicationContent.xml" })
+@ImportResource(locations = { "classpath:applicationContent.xml" })
 @EnableTransactionManagement
 public class MultiTenantJpaConfiguration {
 

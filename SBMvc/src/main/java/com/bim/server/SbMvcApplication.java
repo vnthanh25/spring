@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 
 /*
@@ -38,6 +39,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({"com.bim.server"})
 @EntityScan("com.bim.server.model")
 @EnableJpaRepositories("com.bim.server.repository")
+@EnableResourceServer
 public class SbMvcApplication {
 
 	public static void main(String[] args) {

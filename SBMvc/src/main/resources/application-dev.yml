@@ -1,6 +1,8 @@
 ---
 server:
-  port: 1111
+  port: 4444
+  contextPath: /server
+
 spring:
   profiles: dev
   jpa:

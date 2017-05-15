@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -76,7 +77,9 @@ public class UiApplication extends WebSecurityConfigurerAdapter {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(UiApplication.class, args);
-	}
+/*		new SpringApplicationBuilder(UiApplication.class)
+        .properties("spring.config.name=client").run(args);
+*/	}
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

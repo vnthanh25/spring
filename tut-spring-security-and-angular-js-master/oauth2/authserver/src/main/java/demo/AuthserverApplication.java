@@ -3,6 +3,8 @@ package demo;
 import java.security.KeyPair;
 import java.security.Principal;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,26 +61,75 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	@Order(-20)
 	protected static class LoginConfig extends WebSecurityConfigurerAdapter {
 
+		
 		@Autowired
-		private AuthenticationManager authenticationManager;
+		DataSource dataSource;
 
+		@Autowired
+		public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+
+		  auth.jdbcAuthentication().dataSource(dataSource)
+		  .usersByUsernameQuery(
+		  "select username, password, enabled from users where username=?")
+		  .authoritiesByUsernameQuery(
+		  "select username, role from user_roles where username=?");
+		}
+		
+	    @Bean(name = "dataSource")
+	    public DriverManagerDataSource dataSource() {
+	        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+	        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
+	        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/authserver");
+	        driverManagerDataSource.setUsername("postgres");
+	        driverManagerDataSource.setPassword("admin");
+	        return driverManagerDataSource;
+	    }
+
+
+	    @Override
+	    protected void configure(HttpSecurity http) throws Exception {
+	      http.authorizeRequests()
+//	     .antMatchers("/hello").access("hasRole('ROLE_ADMIN')")  
+	      .antMatchers("/", "/login**", "/webjars/**").permitAll()
+	     .anyRequest().permitAll()
+	     .and()
+	       .formLogin().loginPage("/login")
+	       .usernameParameter("username").passwordParameter("password")
+	       .and()
+			.requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
+	     .and()
+	       .logout().logoutSuccessUrl("/login?logout") 
+	      .and()
+	      .exceptionHandling().accessDeniedPage("/403");
+//	     .and()
+//	       .csrf();
+	    }
+	    
+	    
+/*
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.formLogin().loginPage("/login").permitAll()
+				.formLogin().loginPage("/login")
+//				.permitAll()
+				.usernameParameter("username").passwordParameter("password")
 			.and()
 				.requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
 			.and()
 				.authorizeRequests().anyRequest().authenticated();
 			// @formatter:on
 		}
+*/
+/*		
+		@Autowired
+		private AuthenticationManager authenticationManager;
 
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.parentAuthenticationManager(authenticationManager);
 		}
-	}
+*/	}
 
 	@Configuration
 	@EnableAuthorizationServer

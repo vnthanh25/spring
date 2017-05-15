@@ -1,6 +1,10 @@
 package com.bim.server.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,15 +20,34 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new MultiTenantInterceptor());
 	}
 	
-/*	@Override
+	@Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-            .allowedOrigins("http://localhost:8080")
-            .allowedMethods("GET", "POST", "PUT", "DELETE")
-            .allowedHeaders("header1", "header2", "header3")
-            .exposedHeaders("header1", "header2")
-            .allowCredentials(false).maxAge(3600);
+        registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
+            .allowedHeaders("*");
+//            .allowedHeaders("header1", "header2", "header3")
+//            .exposedHeaders("header1", "header2")
+//            .allowCredentials(true).maxAge(3600);
     }
-*/
 
+/*	
+	@Bean
+    public CorsFilter corsFilter() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("HEAD");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("DELETE");
+        config.addAllowedMethod("PATCH");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    } 	
+*/
 }

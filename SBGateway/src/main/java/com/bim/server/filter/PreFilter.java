@@ -41,10 +41,10 @@ public class PreFilter extends ZuulFilter {
     	String apiUrl = "";
     	switch(tenantId) {
     		case "tenant_1":
-    			apiUrl = "http://localhost:1111";
+    			apiUrl = "http://localhost:4444/server";
     			break;
     		case "tenant_2":
-    			apiUrl = "http://localhost:2222";
+    			apiUrl = "http://localhost:6666/server";
     			break;
     	}
         try {

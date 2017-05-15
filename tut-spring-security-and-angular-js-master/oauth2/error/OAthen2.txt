@@ -1,0 +1,13 @@
+1/.
+No connection could be made because the target machine actively refused
+
+==>>
+
+Start app.
+
+
+2/.
+<html><body><h1>Whitelabel Error Page</h1><p>This application has no explicit mapping for /error, so you are seeing this as a fallback.</p><div id='created'>Mon May 15 07:06:26 ICT 2017</div><div>There was an unexpected error (type=Unauthorized, status=401).</div><div>Authentication Failed: Could not obtain access token</div></body></html>
+
+==>>
+Add .and().requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access") into configure(HttpSecurity http) at AuthserverApplication.
