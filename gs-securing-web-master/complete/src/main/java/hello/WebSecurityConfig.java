@@ -18,11 +18,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
+//            	.loginProcessingUrl("/perform_login")
                 .loginPage("/login")
                 .permitAll()
                 .and()
             .logout()
                 .permitAll();
+/*        
+        http.requiresChannel()
+        	.antMatchers("/login", "/perform_login").requiresSecure()
+        	.anyRequest().requiresInsecure()
+        	;
+        
+        http.sessionManagement()
+        .sessionFixation()
+        .none();
+*/        
     }
 
     @Autowired
